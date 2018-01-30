@@ -4,13 +4,18 @@ https://github.com/mmumshad/simple-webapp
 
 
 #### Create the inventory file inventory.txt
+```sh
 target1 ansible_host=172.17.0.x ansible_ssh_pass=root
 target2 ansible_host=172.17.0.y ansible_ssh_pass=root
+```
 
 #### Spin up the target servers 
 Don't forget to expose the web application to external network
+```sh
 docker run --name target1 -it -p 5000:5000 -d ansible-target:16.04
 docker run --name target2 -it -p 5000:5000 -d ansible-target:16.04
+```
+
 
 All three servers should look like this output
 ```sh
@@ -19,12 +24,15 @@ CONTAINER ID        IMAGE                  COMMAND               CREATED        
 cee8718a0d84        ansible-target:16.04   "/usr/sbin/sshd -D"   About a minute ago   Up About a minute   22/tcp, 0.0.0.0:5001->5000/tcp   target2
 38af5ebf4176        ansible-target:16.04   "/usr/sbin/sshd -D"   About a minute ago   Up About a minute   22/tcp, 0.0.0.0:5000->5000/tcp   target1
 b957560d9746        ansible-server:16.04   "/usr/sbin/sshd -D"   4 days ago           Up 4 days           22/tcp                           ansible
-root@909a6a674fc8:~# ansible target* -m ping -i inventory.txt
 ```
 
 #### Test the SSH connection to the target servers from ansible server
 Connect to the ansible server
 - ssh root@172.17.0.2
+
+Note: The appropriate IP address can be identified by invoking the command 
+docker inspect ansible | grep IPAddress
+
 
 ### Test if ansible works
 - ansible-playbook playbook_web.yml -i inventory.txt
@@ -113,5 +121,7 @@ Open a browser and go to URL
 
 
 ### Remove all containers
+```sh
 docker stop $(docker ps -aq) # Stop all containers
 docker rm $(docker ps -aq) # Remove all containers
+```
