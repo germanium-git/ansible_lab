@@ -1,0 +1,5 @@
+- name: Test connectivity by ping
+  hosts: db_and_web_server1
+  tasks:
+    - name: Try Ping
+      ping:
