@@ -13,7 +13,7 @@ target2 ansible_host=172.17.0.y ansible_ssh_pass=root
 Don't forget to expose the web application to external network
 ```sh
 docker run --name target1 -it -p 5000:5000 -d ansible-target:16.04
-docker run --name target2 -it -p 5000:5000 -d ansible-target:16.04
+docker run --name target2 -it -p 5001:5000 -d ansible-target:16.04
 ```
 
 
