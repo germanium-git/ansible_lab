@@ -5,8 +5,8 @@ https://github.com/mmumshad/simple-webapp
 
 #### Create the inventory file inventory.txt
 ```sh
-target1 ansible_host=172.17.0.x ansible_ssh_pass=root
-target2 ansible_host=172.17.0.y ansible_ssh_pass=root
+db_and_web_server1 ansible_host=172.17.0.x ansible_ssh_pass=root
+db_and_web_server2 ansible_host=172.17.0.y ansible_ssh_pass=root
 ```
 
 #### Spin up the target servers 
