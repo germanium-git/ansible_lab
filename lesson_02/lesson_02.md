@@ -3,12 +3,6 @@ Follow the instructions from
 https://github.com/mmumshad/simple-webapp
 
 
-#### Create the inventory file inventory.txt
-```sh
-db_and_web_server1 ansible_host=172.17.0.x ansible_ssh_pass=root
-db_and_web_server2 ansible_host=172.17.0.y ansible_ssh_pass=root
-```
-
 #### Spin up the target servers 
 Don't forget to expose the web application to external network
 ```sh
@@ -26,12 +20,24 @@ cee8718a0d84        ansible-target:16.04   "/usr/sbin/sshd -D"   About a minute 
 b957560d9746        ansible-server:16.04   "/usr/sbin/sshd -D"   4 days ago           Up 4 days           22/tcp                           ansible
 ```
 
+#### Spin up the ansible server 
+```sh
+docker run --name ansible -it -d -v ~/ansible_lab/lesson_02:/root ansible-server:16.04
+```
+
 #### Test the SSH connection to the target servers from ansible server
 Connect to the ansible server
 - ssh root@172.17.0.2
 
 Note: The appropriate IP address can be identified by invoking the command 
 docker inspect ansible | grep IPAddress
+
+
+#### Update the inventory file inventory.txt
+```sh
+db_and_web_server1 ansible_host=172.17.0.x ansible_ssh_pass=root
+db_and_web_server2 ansible_host=172.17.0.y ansible_ssh_pass=root
+```
 
 
 ### Test if ansible works

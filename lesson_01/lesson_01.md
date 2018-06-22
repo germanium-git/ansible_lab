@@ -19,16 +19,17 @@ Build docker images, run containers end test connectivity between the ansible se
 - docker build -t ansible-server:16.04 .
  
 #### Create a container of the ansible server
-- docker run --name ansible -it -d ansible-server:16.04
+- docker run --name ansible -it -d -v ~/ansible_lab/lesson_01:/root ansible-server:16.04
 - docker inspect ansible | grep IPAddress
 
 #### Configure ansible
 - ssh root@172.17.0.x
 password: root
 
-#### Create the inventory file inventory.txt
-target1 ansible_host=172.17.0.2 ansible_ssh_pass=root
-target2 ansible_host=172.17.0.3 ansible_ssh_pass=root
+#### Update the inventory file inventory.txt
+target1 ansible_host=172.17.0.x ansible_ssh_pass=root
+target2 ansible_host=172.17.0.y ansible_ssh_pass=root
+target3 ansible_host=172.17.0.z ansible_ssh_pass=root
 
 #### Test the SSH connection to the target servers
 Connect to the ansible server
@@ -74,4 +75,10 @@ target1                    : ok=2    changed=0    unreachable=0    failed=0
 target2                    : ok=2    changed=0    unreachable=0    failed=0
 target3                    : ok=2    changed=0    unreachable=0    failed=0
 
+```
+
+### Remove all containers
+```sh
+docker stop $(docker ps -aq) # Stop all containers
+docker rm $(docker ps -aq) # Remove all containers
 ```
